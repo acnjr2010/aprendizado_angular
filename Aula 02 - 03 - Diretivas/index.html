@@ -13,6 +13,9 @@
       margin-right: auto;
       margin-top: 20px;
     }
+    .table {
+      margin-top: 20px;
+    }
   </style>
   <script src="lib/angular/angular.js"></script>
   <script>
@@ -21,6 +24,12 @@
     // localizando um controller e registrando-o
     angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
       $scope.app = "Lista Telefonica";
+      $scope.contatos = [
+        { nome: "Antonio", telefone: "99998888" },
+        { nome: "Carlos", telefone: "99998877" },
+        { nome: "Nogueira", telefone: "99998866" },
+        { nome: "Junior", telefone: "99998855" }
+      ];
     });
   </script>
 </head>
@@ -30,7 +39,20 @@
     ng-bind, ele substitui um elemente por uma expressão, porém é mais usado as chaves {{}}
       <h4 ng-bind="app"></h4>
     -->
-    <h4>{{app}}</h4>
+    <h3>{{app}}</h3>
+    <table class="table table-striped">
+      <tr>
+        <th>Nome</th>
+        <th>Telefone</th>
+      </tr>
+      <!-- o parametro do ng-repeat seria um argumento in (no) array, com temos uma estrutura de repetição que vai
+          rodar quantas vezes forem necessárias -->
+      <tr ng-repeat="contato in contatos">
+        <td>{{ contato.nome }}</td>
+        <td>{{ contato.telefone }}</td>
+      </tr>
+
+    </table>
   </div>
 </body>
 </html>
