@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- ng-app é o nome da aplicação pode ser colocada em qualquer tag porém o habitual é o html -->
+<html lang="pt-BR" ng-app="helloWorld">
+<head>
+  <meta charset="UTF-8">
+  <title>Angular Hello World</title>
+  <!-- Importando o angular-->
+  <script src="angular.js"></script>
+  <!-- Criando modulo Hello World -->
+  <script>
+    //Para criar o modulo colocamos como parametro o nome do aplicativo e colchetes, esses colchetes servem
+    //para chamar outros modulos, plugins e etc..
+
+    angular.module("helloWorld", []);
+
+    //criando o controller
+    //localizar o modulo é igual a criação com a diferença que não é necessário colocar os colchetes
+    //.controller determina a criação do controller, o primeiro paramentro é o nome do controller e o segundo a function com o $scope embutido
+    //para colocar dados para ser usado na view basta usar $scope.tal_coisa = Ao que quer escrever
+
+    angular.module("helloWorld").controller("helloWorldController", function($scope){
+      $scope.message = "Hello World!!";
+    });
+
+    //crindo a view
+  </script>
+</head>
+<body>
+  <!--Para utilizar o controler na views usamos o $scope que ja foi embutido, nisso chamamos ele através do comando
+      ng-controller="nome do controller", para imprimir algo na tela basta usar chaves interpoladas {{variavel}} e dentro
+      dela colocar o nome da váriavel que vc quer usar, não é necessário usar $scope, já que como vc indica o controller
+      ele sabe que informação ele deve mostrar na tela. -->
+  <div ng-controller="helloWorldController">
+    {{message}}
+  </div>
+</body>
+</html>
