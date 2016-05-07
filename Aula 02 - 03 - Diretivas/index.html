@@ -16,6 +16,11 @@
     .table {
       margin-top: 20px;
     }
+    .form-control {
+      margin-bottom: 5px;
+      margin-left: 20px;
+      width: 90%;
+    }
   </style>
   <script src="lib/angular/angular.js"></script>
   <script>
@@ -51,8 +56,10 @@
         <td>{{ contato.nome }}</td>
         <td>{{ contato.telefone }}</td>
       </tr>
-
     </table>
+
+    <input type="text" class="form-control" ng-model="nome" />
+    <input type="text" class="form-control" ng-model="telefone" />
   </div>
 </body>
 </html>
