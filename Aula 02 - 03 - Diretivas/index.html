@@ -21,6 +21,10 @@
       margin-left: 20px;
       width: 90%;
     }
+    .btn-block{
+      margin-left: 20px;
+      width: 90%;
+    }
   </style>
   <script src="lib/angular/angular.js"></script>
   <script>
@@ -35,6 +39,12 @@
         { nome: "Nogueira", telefone: "99998866" },
         { nome: "Junior", telefone: "99998855" }
       ];
+      $scope.adicionarContato = function(contato){
+        // para quebrar um circuito fechado onde vc usa o mesmo paramentro vc pode usar o angular.copy e para melhorar vc pode apagar
+        // usando o delete
+        $scope.contatos.push(angular.copy(contato));
+        delete $scope.contato;
+      };
     });
   </script>
 </head>
@@ -59,8 +69,10 @@
     </table>
     <!-- ng-model faz o inverso do ng-bind, ele pega algo do $view e define no $scope, o ng model é utilizado principalmente em
         03 elementos, nos inputs, nos selects e nos textareas -->
-    <input type="text" class="form-control" ng-model="nome" />
-    <input type="text" class="form-control" ng-model="telefone" />
+    <input type="text" class="form-control" ng-model="contato.nome" placeholder="Nome" />
+    <input type="text" class="form-control" ng-model="contato.telefone" placeholder="Telefone" />
+    <!-- ng-click serve para chamar determinada function com o click, existem várias outras diretivas como double click e etc-->
+    <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar Contato</button>
   </div>
 </body>
 </html>
