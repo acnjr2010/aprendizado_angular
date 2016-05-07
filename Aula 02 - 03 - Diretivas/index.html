@@ -57,7 +57,8 @@
         <td>{{ contato.telefone }}</td>
       </tr>
     </table>
-
+    <!-- ng-model faz o inverso do ng-bind, ele pega algo do $view e define no $scope, o ng model é utilizado principalmente em
+        03 elementos, nos inputs, nos selects e nos textareas -->
     <input type="text" class="form-control" ng-model="nome" />
     <input type="text" class="form-control" ng-model="telefone" />
   </div>
