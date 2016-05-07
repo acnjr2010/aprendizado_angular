@@ -4,13 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Lista Telefonica</title>
+  <link rel="stylesheet" href="lib/bootstrap/bootstrap.css" media="screen" title="no title" charset="utf-8">
   <script src="lib/angular/angular.js"></script>
   <script>
     //criação do modulo listaTelefonica
     angular.module("listaTelefonica", []);
+    // localizando um controller e registrando-o
+    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
+
+    });
   </script>
 </head>
-<body>
+<body ng-controller="listaTelefonicaCtrl">
 
 </body>
 </html>
