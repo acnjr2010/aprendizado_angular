@@ -39,6 +39,11 @@
         { nome: "Nogueira", telefone: "99998866" },
         { nome: "Junior", telefone: "99998855" }
       ];
+      $scope.operadoras = [
+        { nome: "Oi", codigo: 14 },
+        { nome: "Vivo", codigo: 15 },
+        { nome: "Tim", codigo: 41 }
+      ];
       $scope.adicionarContato = function(contato){
         // para quebrar um circuito fechado onde vc usa o mesmo paramentro vc pode usar o angular.copy e para melhorar vc pode apagar
         // usando o delete
@@ -59,18 +64,25 @@
       <tr>
         <th>Nome</th>
         <th>Telefone</th>
+        <th>Operadora</th>
       </tr>
       <!-- o parametro do ng-repeat seria um argumento in (no) array, com temos uma estrutura de repetição que vai
           rodar quantas vezes forem necessárias -->
       <tr ng-repeat="contato in contatos">
         <td>{{ contato.nome }}</td>
         <td>{{ contato.telefone }}</td>
+        <td>{{ contato.operadora.nome }}</td>
       </tr>
     </table>
     <!-- ng-model faz o inverso do ng-bind, ele pega algo do $view e define no $scope, o ng model é utilizado principalmente em
         03 elementos, nos inputs, nos selects e nos textareas -->
     <input type="text" class="form-control" ng-model="contato.nome" placeholder="Nome" />
     <input type="text" class="form-control" ng-model="contato.telefone" placeholder="Telefone" />
+    <!-- ng-options utilizado nos selects ele faz uma estrutura de repetiçao, no select é obrigatório o uso do ng-model tmbm -->
+
+    <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras">
+      <option value="">Selecione uma operadora</option>
+    </select>
     <!-- ng-click serve para chamar determinada function com o click, existem várias outras diretivas como double click e etc-->
     <!-- ng-disabled serve para desabilitar um botão, campo ou qualquer coisa que possa ser desabilitado passando uma condição para ela fazer o serviço-->
     <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
