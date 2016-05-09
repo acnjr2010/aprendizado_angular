@@ -72,7 +72,8 @@
     <input type="text" class="form-control" ng-model="contato.nome" placeholder="Nome" />
     <input type="text" class="form-control" ng-model="contato.telefone" placeholder="Telefone" />
     <!-- ng-click serve para chamar determinada function com o click, existem várias outras diretivas como double click e etc-->
-    <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar Contato</button>
+    <!-- ng-disabled serve para desabilitar um botão, campo ou qualquer coisa que possa ser desabilitado passando uma condição para ela fazer o serviço-->
+    <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
   </div>
 </body>
 </html>
