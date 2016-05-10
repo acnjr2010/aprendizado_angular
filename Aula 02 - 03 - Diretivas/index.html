@@ -25,6 +25,9 @@
       margin-left: 20px;
       width: 90%;
     }
+    .selecionado {
+      background-color: yellow;
+    }
   </style>
   <script src="lib/angular/angular.js"></script>
   <script>
@@ -50,6 +53,18 @@
         $scope.contatos.push(angular.copy(contato));
         delete $scope.contato;
       };
+      $scope.apagarContatos = function(contatos){
+        // filter -> Pesquisar
+        $scope.contatos = contatos.filter(function(contato){
+          if(!contato.selecionado) return contato;
+        });
+      };
+      $scope.isContatoSelecionado = function(contatos){
+        // some -> pesquisar
+        return contatos.some(function (contato) {
+          return contato.selecionado;
+        });
+      };
     });
   </script>
 </head>
@@ -62,13 +77,18 @@
     <h3>{{app}}</h3>
     <table class="table table-striped">
       <tr>
+        <th></th>
         <th>Nome</th>
         <th>Telefone</th>
         <th>Operadora</th>
       </tr>
       <!-- o parametro do ng-repeat seria um argumento in (no) array, com temos uma estrutura de repetição que vai
-          rodar quantas vezes forem necessárias -->
-      <tr ng-repeat="contato in contatos">
+          rodar quantas vezes forem necessárias
+
+          ng-class... pesquisar
+         -->
+      <tr ng-class="{ selecionado: contato.selecionado }" ng-repeat="contato in contatos">
+        <td><input type="checkbox" ng-model="contato.selecionado" /></td>
         <td>{{ contato.nome }}</td>
         <td>{{ contato.telefone }}</td>
         <td>{{ contato.operadora.nome }}</td>
@@ -86,6 +106,7 @@
     <!-- ng-click serve para chamar determinada function com o click, existem várias outras diretivas como double click e etc-->
     <!-- ng-disabled serve para desabilitar um botão, campo ou qualquer coisa que possa ser desabilitado passando uma condição para ela fazer o serviço-->
     <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+    <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-disabled="!isContatoSelecionado(contatos)">Apagar Contatos</button>
   </div>
 </body>
 </html>
