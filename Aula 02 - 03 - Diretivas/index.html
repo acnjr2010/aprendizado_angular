@@ -37,10 +37,10 @@
     angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
       $scope.app = "Lista Telefonica";
       $scope.contatos = [
-        { nome: "Antonio", telefone: "99998888" },
-        { nome: "Carlos", telefone: "99998877" },
-        { nome: "Nogueira", telefone: "99998866" },
-        { nome: "Junior", telefone: "99998855" }
+        { nome: "Antonio", telefone: "99998888", cor: "green" },
+        { nome: "Carlos", telefone: "99998877", cor: "yellow" },
+        { nome: "Nogueira", telefone: "99998866", cor: "blue" },
+        { nome: "Junior", telefone: "99998855", cor: "white" }
       ];
       $scope.operadoras = [
         { nome: "Oi", codigo: 14 },
@@ -81,6 +81,7 @@
         <th>Nome</th>
         <th>Telefone</th>
         <th>Operadora</th>
+        <th></th>
       </tr>
       <!-- o parametro do ng-repeat seria um argumento in (no) array, com temos uma estrutura de repetição que vai
           rodar quantas vezes forem necessárias
@@ -92,6 +93,8 @@
         <td>{{ contato.nome }}</td>
         <td>{{ contato.telefone }}</td>
         <td>{{ contato.operadora.nome }}</td>
+        <!-- ng-style serve para colocar determinada estilização dinâmica, verificar a cor nos contatos. -->
+        <td> <div style="width:20px; height:20px;" ng-style="{ 'background-color': contato.cor }"></div></td>
       </tr>
     </table>
     <!-- ng-model faz o inverso do ng-bind, ele pega algo do $view e define no $scope, o ng model é utilizado principalmente em
