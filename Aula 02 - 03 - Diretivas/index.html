@@ -109,7 +109,11 @@
     <!-- ng-click serve para chamar determinada function com o click, existem várias outras diretivas como double click e etc-->
     <!-- ng-disabled serve para desabilitar um botão, campo ou qualquer coisa que possa ser desabilitado passando uma condição para ela fazer o serviço-->
     <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+    <!-- pode ser usado o ng-if que é uma condicional, utilizado quando na página se usa recursos como imagens, videos, audios e etc -->
     <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-disabled="!isContatoSelecionado(contatos)">Apagar Contatos</button>
   </div>
+  <!-- ng-include inclui o conteudo de outro arquivo dentro da mesma página, as aspas simples dentro das aspas duplas são obrigatórias
+      se não ele vai procurar algo no scope -->
+  <div ng-include="'footer.html'"></div>
 </body>
 </html>
