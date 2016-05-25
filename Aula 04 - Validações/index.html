@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- ng-app define as fronteiras que o Angular irá utilizar, recomendado usar em tags altas (html ou body) -->
+<html lang="pt-BR" ng-app="listaTelefonica">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista Telefonica</title>
+  <link rel="stylesheet" href="lib/bootstrap/bootstrap.css" media="screen" title="no title" charset="utf-8">
+  <style>
+    .jumbotron{
+      width: 400px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px;
+    }
+    .table {
+      margin-top: 20px;
+    }
+    .form-control {
+      margin-bottom: 5px;
+      margin-left: 20px;
+      width: 90%;
+    }
+    .btn-block{
+      margin-left: 20px;
+      width: 90%;
+    }
+    .selecionado {
+      background-color: yellow;
+    }
+  </style>
+  <script src="lib/angular/angular.js"></script>
+  <script>
+    //criação do modulo listaTelefonica
+    angular.module("listaTelefonica", []);
+    // localizando um controller e registrando-o
+    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
+      $scope.app = "Lista Telefonica";
+      $scope.contatos = [
+        { nome: "Antonio", telefone: "99998888", cor: "green" },
+        { nome: "Carlos", telefone: "99998877", cor: "yellow" },
+        { nome: "Nogueira", telefone: "99998866", cor: "blue" },
+        { nome: "Junior", telefone: "99998855", cor: "white" }
+      ];
+      $scope.operadoras = [
+        { nome: "Oi", codigo: 14 },
+        { nome: "Vivo", codigo: 15 },
+        { nome: "Tim", codigo: 41 }
+      ];
+      $scope.adicionarContato = function(contato){
+        // para quebrar um circuito fechado onde vc usa o mesmo paramentro vc pode usar o angular.copy e para melhorar vc pode apagar
+        // usando o delete
+        $scope.contatos.push(angular.copy(contato));
+        delete $scope.contato;
+      };
+      $scope.apagarContatos = function(contatos){
+        // filter -> Pesquisar
+        $scope.contatos = contatos.filter(function(contato){
+          if(!contato.selecionado) return contato;
+        });
+      };
+      $scope.isContatoSelecionado = function(contatos){
+        // some -> pesquisar
+        return contatos.some(function (contato) {
+          return contato.selecionado;
+        });
+      };
+    });
+  </script>
+</head>
+<body ng-controller="listaTelefonicaCtrl">
+  <div class="jumbotron">
+    <!--
+    ng-bind, ele substitui um elemente por uma expressão, porém é mais usado as chaves {{}}
+      <h4 ng-bind="app"></h4>
+    -->
+    <h3>{{app}}</h3>
+    <table class="table table-striped">
+      <tr>
+        <th></th>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Operadora</th>
+        <th></th>
+      </tr>
+      <!-- o parametro do ng-repeat seria um argumento in (no) array, com temos uma estrutura de repetição que vai
+          rodar quantas vezes forem necessárias
+
+          ng-class... pesquisar
+         -->
+      <tr ng-class="{ selecionado: contato.selecionado }" ng-repeat="contato in contatos">
+        <td><input type="checkbox" ng-model="contato.selecionado" /></td>
+        <td>{{ contato.nome }}</td>
+        <td>{{ contato.telefone }}</td>
+        <td>{{ contato.operadora.nome }}</td>
+        <!-- ng-style serve para colocar determinada estilização dinâmica, verificar a cor nos contatos. -->
+        <td> <div style="width:20px; height:20px;" ng-style="{ 'background-color': contato.cor }"></div></td>
+      </tr>
+    </table>
+    <!-- ng-model faz o inverso do ng-bind, ele pega algo do $view e define no $scope, o ng model é utilizado principalmente em
+        03 elementos, nos inputs, nos selects e nos textareas -->
+    <input type="text" class="form-control" ng-model="contato.nome" placeholder="Nome" />
+    <input type="text" class="form-control" ng-model="contato.telefone" placeholder="Telefone" />
+    <!-- ng-options utilizado nos selects ele faz uma estrutura de repetiçao, no select é obrigatório o uso do ng-model tmbm -->
+
+    <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras">
+      <option value="">Selecione uma operadora</option>
+    </select>
+    <!-- ng-click serve para chamar determinada function com o click, existem várias outras diretivas como double click e etc-->
+    <!-- ng-disabled serve para desabilitar um botão, campo ou qualquer coisa que possa ser desabilitado passando uma condição para ela fazer o serviço-->
+    <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+    <!-- pode ser usado o ng-if que é uma condicional, utilizado quando na página se usa recursos como imagens, videos, audios e etc -->
+    <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-disabled="!isContatoSelecionado(contatos)">Apagar Contatos</button>
+  </div>
+  <!-- ng-include inclui o conteudo de outro arquivo dentro da mesma página, as aspas simples dentro das aspas duplas são obrigatórias
+      se não ele vai procurar algo no scope, uma observação é que esse comando ng-include não funcionou no Chrome -->
+  <div ng-include="'footer.html'"></div>
+</body>
+</html>
