@@ -52,6 +52,8 @@
         // usando o delete
         $scope.contatos.push(angular.copy(contato));
         delete $scope.contato;
+        //$setPristine() transforma o campo como se não tivesse sido modificado antes de adicionar o contato.
+        $scope.contatoForm.$setPristine();
       };
       $scope.apagarContatos = function(contatos){
         // filter -> Pesquisar
@@ -112,11 +114,12 @@
         <option value="">Selecione uma operadora</option>
       </select>
     </form>
-    <div ng-show="contatoForm.nome.$invalid" class="alert-danger">
+    <!-- $dirty verifica se o campo já foi preenchido alguma vez -->
+    <div ng-show="contatoForm.nome.$invalid && contatoForm.nome.$dirty" class="alert-danger">
       Por favor preencha o campo nome!
     </div>
 
-    <div ng-show="contatoForm.telefone.$invalid" class="alert-danger">
+    <div ng-show="contatoForm.telefone.$invalid && contatoForm.telefone.$dirty" class="alert-danger">
       Por favor preencha o campo telefone.
     </div>
 
