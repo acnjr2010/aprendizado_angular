@@ -30,9 +30,11 @@
     }
   </style>
   <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular/angular-messages.js"></script>
   <script>
     //criação do modulo listaTelefonica
-    angular.module("listaTelefonica", []);
+    //dentro do conchetes colocamos os modulos que importamos de outros arquivos angular
+    angular.module("listaTelefonica", ["ngMessages"]);
     // localizando um controller e registrando-o
     angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
       $scope.app = "Lista Telefonica";
@@ -118,20 +120,27 @@
     </form>
     <!-- $dirty verifica se o campo já foi preenchido alguma vez -->
     <!-- $error consulta erros dos compos de formulário -->
-    <div ng-show="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert-danger">
-      Por favor preencha o campo nome!
+    <!-- ng-messages agrupa tipos de mensagens e é declarada no plural, e cada mensagem dentro do messages é o ng-message no singular
+    O ng-messages é um modulo externo e deve ser importado no projeto
+    -->
+    <div ng-messages="contatoForm.nome.$error">
+      <div ng-message="required && contatoForm.nome.$dirty" class="alert-danger">
+        Por favor preencha o campo nome!
+      </div>
+
+      <div ng-message="minlength" class="alert-danger">
+        O campo nome deve ter no mínimo 10 caracteres
+      </div>
     </div>
 
-    <div ng-show="contatoForm.nome.$error.minlength" class="alert-danger">
-      O campo nome deve ter no mínimo 10 caracteres
-    </div>
+    <div ng-messages="contatoForm.telefone.$error">
+      <div ng-message="require && contatoForm.telefone.$dirty" class="alert-danger">
+        Por favor preencha o campo telefone.
+      </div>
 
-    <div ng-show="contatoForm.telefone.$error.require && contatoForm.telefone.$dirty" class="alert-danger">
-      Por favor preencha o campo telefone.
-    </div>
-
-    <div ng-show="contatoForm.telefone.$error.pattern" class="alert-danger">
-      O campo telefone deve ter o formato XXXXX-XXXX.
+      <div ng-message="pattern" class="alert-danger">
+        O campo telefone deve ter o formato XXXXX-XXXX.
+      </div>
     </div>
     <!-- ng-click serve para chamar determinada function com o click, existem várias outras diretivas como double click e etc-->
     <!-- ng-disabled serve para desabilitar um botão, campo ou qualquer coisa que possa ser desabilitado passando uma condição para ela fazer o serviço-->
