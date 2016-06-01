@@ -106,8 +106,10 @@
         automaticamente no scope e poderemos usar por exemplo contatoForm.nome, contatoForm.telefone
        -->
     <form name="contatoForm">
+      <!-- ng-minlength verifica o tamanho minimo do campo -->
       <input type="text" class="form-control" ng-model="contato.nome" name="nome" placeholder="Nome" ng-required="true" ng-minlength="10" />
-      <input type="text" class="form-control" ng-model="contato.telefone" name="telefone" placeholder="Telefone" ng-required="true" />
+      <!-- ng-pattern trabalha verificando expressões regulares -->
+      <input type="text" class="form-control" ng-model="contato.telefone" name="telefone" placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
       <!-- ng-options utilizado nos selects ele faz uma estrutura de repetiçao, no select é obrigatório o uso do ng-model tmbm -->
 
       <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras">
@@ -124,10 +126,13 @@
       O campo nome deve ter no mínimo 10 caracteres
     </div>
 
-    <div ng-show="contatoForm.telefone.$invalid && contatoForm.telefone.$dirty" class="alert-danger">
+    <div ng-show="contatoForm.telefone.$error.require && contatoForm.telefone.$dirty" class="alert-danger">
       Por favor preencha o campo telefone.
     </div>
 
+    <div ng-show="contatoForm.telefone.$error.pattern" class="alert-danger">
+      O campo telefone deve ter o formato XXXXX-XXXX.
+    </div>
     <!-- ng-click serve para chamar determinada function com o click, existem várias outras diretivas como double click e etc-->
     <!-- ng-disabled serve para desabilitar um botão, campo ou qualquer coisa que possa ser desabilitado passando uma condição para ela fazer o serviço-->
     <!-- $invalid é usado para que verificar se determinados campos estão preenchidos ou não através do ng-required -->
