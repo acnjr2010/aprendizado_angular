@@ -106,7 +106,7 @@
         automaticamente no scope e poderemos usar por exemplo contatoForm.nome, contatoForm.telefone
        -->
     <form name="contatoForm">
-      <input type="text" class="form-control" ng-model="contato.nome" name="nome" placeholder="Nome" ng-required="true" />
+      <input type="text" class="form-control" ng-model="contato.nome" name="nome" placeholder="Nome" ng-required="true" ng-minlength="10" />
       <input type="text" class="form-control" ng-model="contato.telefone" name="telefone" placeholder="Telefone" ng-required="true" />
       <!-- ng-options utilizado nos selects ele faz uma estrutura de repetiçao, no select é obrigatório o uso do ng-model tmbm -->
 
@@ -115,8 +115,13 @@
       </select>
     </form>
     <!-- $dirty verifica se o campo já foi preenchido alguma vez -->
-    <div ng-show="contatoForm.nome.$invalid && contatoForm.nome.$dirty" class="alert-danger">
+    <!-- $error consulta erros dos compos de formulário -->
+    <div ng-show="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert-danger">
       Por favor preencha o campo nome!
+    </div>
+
+    <div ng-show="contatoForm.nome.$error.minlength" class="alert-danger">
+      O campo nome deve ter no mínimo 10 caracteres
     </div>
 
     <div ng-show="contatoForm.telefone.$invalid && contatoForm.telefone.$dirty" class="alert-danger">
